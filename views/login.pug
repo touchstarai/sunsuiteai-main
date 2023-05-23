@@ -1,0 +1,55 @@
+doctype html
+html(lang="en")
+    head
+        include _head
+        script(defer src="/assets/js/script.js", type="module")
+
+    body
+        // Navigation section
+        include _nav
+        section#scroll-top.breadcrumb
+        if !user
+            .container.mb-3
+                .row
+                    .col-lg-7.text-center.text-lg-start
+                        .col-lg-7.text-center.text-lg-start
+                            h2.fw-bold.display-5 Login
+                            include _signInWithGoogle
+                    
+                        hr
+                        h4.text-purple.fw-bold
+                            | Welcome Back to AI
+                        p.opacity-75
+                            | Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            | Cupiditate vitae velit nam consectetur, in ullam natus pariatur
+                            | aliquid. Aut, magnam!
+                        form.login-form
+                            .mb-3
+                                label.form-label(for="email") Email
+                                input#email.form-control(type="email", name='email', placeholder="Enter your registered username here..." required)
+                            .mb-3#password-container
+                                label.form-label(for="password") Password
+                                input#password.form-control(type="password", name='password', placeholder="********" required)
+                            .row
+                                .col-lg-6.mb-3
+                                    a#forgot-password(href="#", class='forgot-password') Forgot Password?
+                            button.btn.btn-loginnow.btn-primary.fs-5.fw-bold.px-5(type="submit") LOGIN NOW!
+                    .col-lg-5.d-none.d-lg-block
+                        img.img-fluid(src="/assets/img/login-image.png", alt='login')
+        else
+            section#scroll-top.breadcrumb
+                    .container
+                        .row
+                            .col-lg-7.text-center.text-lg-start
+                                h2.fw-bold.display-5 You are already loged in.
+
+        #modal-resetlink.modal.fade(tabindex="-1", aria-labelledby="registerlogin", aria-hidden="true")
+            .modal-dialog.modal-dialog-centered.modal-lg.text-center
+                .modal-content
+                    .modal-body.py-6
+                        h3.fw-bold.fs-2
+                            i.bi.bi-envelope-check
+                            | The Reset link is sent
+                            |  to your Email,Check Your Email and click to set new password
+        // footer
+        include _footer

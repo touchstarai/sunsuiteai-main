@@ -1,0 +1,237 @@
+extends base
+include _pricingCard
+block append head
+
+include _featureCard
+block content
+
+    // Hero section
+    section#scroll-top.hero.position-relative
+        .container
+            .row
+                .col-lg-6.d-flex.align-items-center.justify-content-center.justify-content-lg-start
+                    .hero-content.text-center.text-lg-start
+                        h2.m-0.opacity-75.fs-3
+                            | Welcome!  I'm the
+                        h1.text-secondary-color.m-0.display-4
+                            | SUNSUITE AI bot
+                        #typed-strings
+                            h1.display-5.fw-bold.text-turi
+                                span#typed
+                            br
+                .col-lg-6.d-lg-flex.align-items-center
+                    img.img-fluid(defer src="/assets/img/robot.gif", alt="chatbot-image")
+    // Targets
+    section.slider-main-containor.py-4.px-3.bg-turiLight
+        .main-slider
+            .reviews
+                h2.fw-bold.display-5 My Targets
+            // slide container
+            .slide-container
+                // each article
+                // next and prev btns
+            button.slider-btn.prev-btn
+                i.bi.bi-arrow-left-square
+            button.slider-btn.next-btn
+                i.bi.bi-arrow-right-square
+    
+    // Stripe
+    #modal-pay.modal.fade(tabindex="-1", aria-labelledby="exampleModalLabel", aria-hidden="true")
+        .modal-dialog.payment-modal
+            .modal-content
+                .modal-header
+                    h5#exampleModalLabel.modal-title Selected Plan Name Here
+                    button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
+                .modal-body
+                    h4.fw-bold.fs-4 Continue with
+                    button.btn-outline.btn-primary
+                        | Stripe
+
+    // Description section
+    section.how-it-works.py-2.text-center.px-3.px-lg-0
+        .container
+            .row
+                .col-lg-5.mt-4
+                    img.img-fluid.img-description(src="/assets/img/robot-with-books (1).jpg", alt="analysis picture")
+                .col-lg-7.mt-4.d-flex.align-items-center
+                    .div
+                        h2.fw-bold.display-5 How It Works?
+                        h4.fw-bold How Does SUNSUITE Work when it compared to other chatbots?
+                        ul.text-lg-start
+                            li
+                                i.bi.bi-robot
+                                b Document collaboration
+                                | - With SUNSUITE, users can upload and collaborate on PDF documents
+                                | with AI-powered chatbot, allowing for more efficient 
+                                | and streamlined collaboration compared to other chatbot that are not specifically designed for document collaboration.
+                            li
+                                i.bi.bi-robot
+                                b  Academic research
+                                | - SUNSUITE AI-powered chatbot can help students and researchers quickly
+                                | identify sources and references within academic documents, 
+                                | promoting a more accurate and reliable research process compared to other chatbot that lack this specific functionality.
+                            li
+                                i.bi.bi-robot
+                                b  Document analysis
+                                | - SUNSUITE chatbot can help analysts quickly analyze and interpret complex data 
+                                | within documents,
+                                | providing a more efficient and streamlined analysis process compared to other chatbots that may not have the same level of document
+                                | analysis capabilities.
+                            li
+                                i.bi.bi-robot
+                                b  Personalized learning
+                                | - With SUNSUITE AI-powered chatbots, students and curious minds can engage
+                                | with their documents in a more personalized and intuitive way, receiving feedback and suggestions in real-time, 
+                                | unlike other chatbots that may not be able to provide the same level of personalized engagement.
+                            li
+                                i.bi.bi-robot
+                                b Speed and accuracy
+                                | - SUNSUITE AI-powered chatbots are able to quickly and accurately identify and analyze documents, making the application a more efficient and 
+                                | reliable tool compared to other chatbots that may not be as accurate or speedy in their analysis and interpretation of documents.
+                            li
+        // Formatts
+    section.flip-card-container.py-4.px-3.px-lg-0.bg-turiLight
+        h2.fw-bold.display-5.text-center.text-blue Supported File Formats
+        p.text-blue
+            | We work hard to provide diffrent file formats avaliable! These are the Allowed Formats.
+        // desktop version
+        .card-group
+            .little-card.flip-card
+            .big-card.flip-card
+            .little-card.flip-card
+            .big-card.flip-card
+            .little-card.flip-card
+            .big-card.flip-card
+            .little-card.flip-card
+            .big-card.flip-card
+            //- .little-card.flip-card
+            .big-card.flip-card
+    // Pricing section
+    section.container.py-4.px-3.px-lg-0
+        .row.text-center
+            h2.fw-bold.display-5 Flexible and transparent pricing
+            p
+                | Whatever your status, our offers evolve according to your needs.
+    section.side.justify-content-center.section-pricing
+        -for(let i = 0; i < plans.length; i++)
+            +pricingCard(plans[i])
+        
+        //- .card
+        //-     .card--header2
+        //-         h1.entry Normal
+        //-         span.main
+        //-             h2.dollar.price-tag(data-value1="14", data-value2="40") 14€
+        //-             span.sub
+        //-                 p.tag /month
+        //-                 span.badge.badge--small 20% OFF
+        //-         h2.moto Easy Start on the Cloud
+        //-     .description
+        //-         ul.description--list
+        //-             li.list lorem ipsum lore
+        //-             li.list lorem ipsum lore
+        //-             li.list lorem ipsum lore
+        //-             li.list lorem ipsum lore
+        //-         .nav-item.text-center.action-buttons.pricing-buttons
+        //-             a.btn-outline-primary.btn.my-2.my-lg-3.mx-2.px-4(href="./components/pricing.html")
+        //-                 i.bi.bi-currency-euro
+        //-                 | subscribe
+        //- .card
+        //-     .card--header2
+        //-         h1.entry Standard
+        //-         span.main
+        //-             h2.dollar.price-tag(data-value1="24", data-value2="80") 24€
+        //-             span.sub
+        //-                 p.tag /month
+        //-                 span.badge.badge--small 10% OFF
+        //-         h2.moto Easy Start on the Cloud
+        //-     .description
+        //-         ul.description--list
+        //-             li.list lorem ipsum lore
+        //-             li.list lorem ipsum lore
+        //-             li.list lorem ipsum lore
+        //-             li.list lorem ipsum lore
+        //-         .nav-item.text-center.action-buttons.pricing-buttons
+        //-             a.btn-outline-primary.btn.my-2.my-lg-3.mx-2.px-4(href="./components/pricing.html")
+        //-                 i.bi.bi-currency-euro
+        //-                 | subscribe
+        //- .card
+        //-     .card--header2
+        //-         h1.entry Premium
+        //-         span.main
+        //-             h2.dollar.price-tag(data-value1="34", data-value2="124") 34€
+        //-             span.sub
+        //-                 p.tag /month
+        //-                 span.badge.badge--small 10% OFF
+        //-         h2.moto Easy Start on the Cloud
+        //-     .description
+        //-         ul.description--list
+        //-             li.list lorem ipsum lore
+        //-             li.list lorem ipsum lore
+        //-             li.list lorem ipsum lore
+        //-             li.list lorem ipsum lore
+        //-         .nav-item.text-center.action-buttons.pricing-buttons
+        //-             a.btn-outline-primary.btn.my-2.my-lg-3.mx-2.px-4(href="./components/pricing.html")
+        //-                 i.bi.bi-currency-euro
+        //-                 | subscribe
+    // FAQs section
+    section.faqs.py-6.bg-turiLight.px-3.px-lg-0.bg-turiLight
+        .container
+            .row
+                .col-lg-8.text-blue
+                    h2.fw-bold.display-5.text-center Frequently Asked Questions 
+                    h4.fw-bold.text-center
+                        | These are the most Frequently Asked Questions in our platform
+                    p.opacity-75
+                        | Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        | Cupiditate vitae velit nam consectetur, in ullam natus pariatur
+                        | aliquid. Aut, magnam!
+                    // Accordion
+                    #accordionExample.accordion
+                        .accordion-item
+                            h2#headingOne.accordion-header
+                                button.accordion-button(type="button", data-bs-toggle="collapse", data-bs-target="#collapseOne", aria-expanded="true", aria-controls="collapseOne")
+                                    | Which AI Model is used for the SUNSUITE bot?
+                            #collapseOne.accordion-collapse.collapse.show(aria-labelledby="headingOne", data-bs-parent="#accordionExample")
+                                .accordion-body
+                                    | Our SUNSUITE bot uses the advanced ChatGPT AI model for engaging and informative conversations with users. While we use other 
+                                    | AI models such as Pinecone and LangChain for other purposes, we have found ChatGPT to be the best-suited model for SUNSUITE.
+                        .accordion-item
+                            h2#headingTwo.accordion-header
+                                button.accordion-button.collapsed(type="button", data-bs-toggle="collapse", data-bs-target="#collapseTwo", aria-expanded="false", aria-controls="collapseTwo")
+                                    | Can I cancel subscription any time?
+                            #collapseTwo.accordion-collapse.collapse(aria-labelledby="headingTwo", data-bs-parent="#accordionExample")
+                                .accordion-body
+                                    | Yes, you can cancel your SUNSUITE subscription at any time. We believe in providing our users with flexibility and control over their 
+                                    | subscription, which is why we offer a hassle-free cancellation process. If you decide to cancel your subscription, simply visit your 
+                                    | account settings and select the cancellation option. 
+                                    | You will still have access to SUNSUITE until the end of your current billing period, after which your subscription will be cancelled
+                        .accordion-item
+                            h2#headingThree.accordion-header
+                                button.accordion-button.collapsed(type="button", data-bs-toggle="collapse", data-bs-target="#collapseThree", aria-expanded="false", aria-controls="collapseThree")
+                                    | Can i add more than one pdf file ?
+                            #collapseThree.accordion-collapse.collapse(aria-labelledby="headingThree", data-bs-parent="#accordionExample")
+                                .accordion-body
+                                    | In SUNSUITE there is no limit to the number of documents or pages you can chat with.
+                        .accordion-item
+                            h2#headingFour.accordion-header
+                                button.accordion-button.collapsed(type="button", data-bs-toggle="collapse", data-bs-target="#collapseFour", aria-expanded="false", aria-controls="collapseFour")
+                                    | What are the accepted formats ?
+                            #collapseFour.accordion-collapse.collapse(aria-labelledby="headingFour", data-bs-parent="#accordionExample")
+                                .accordion-body
+                                    | At SUNSUITE, we accept a variety of file formats to ensure that our users can easily upload and work with their documents. 
+                                    | Currently, we support the following formats: PDF, .txt, Epub, Doc, and CSV files. This means that you can
+                                    | upload a wide range of document types to our platform and start chatting with them right away.
+                                    | If you have any questions or concerns about supported file formats, please don&apos;t hesitate to reach out to our support team.
+                        .accordion-item
+                            h2#headingFive.accordion-header
+                                button.accordion-button.collapsed(type="button", data-bs-toggle="collapse", data-bs-target="#collapseFive", aria-expanded="false", aria-controls="collapseFive")
+                                    | Does it outline the source from the PDF?
+                            #collapseFive.accordion-collapse.collapse(aria-labelledby="headingFive", data-bs-parent="#accordionExample")
+                                .accordion-body
+                                    | Yes, SUNSUITE outlines the sources of the information it retrieves from the PDF. Our advanced AI model analyzes 
+                                    | the content of the PDF and provides relevant information based on the document&apos;s sources. This allows you to easily verify the accuracy of the information and track down the original source material if needed. Additionally, SUNSUITE provides links to the 
+                                    | articles or websites from which the information was sourced, making it easy to access additional information and context
+                // background faq
+                .col-lg-4.bg-faq
+    
+    

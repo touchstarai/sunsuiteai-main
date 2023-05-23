@@ -1,0 +1,51 @@
+mixin pricingCard(plan)
+    .card.card-pricing(data-plan=plan._id, data-plan-name=plan.name, class=plan.name)
+        .card--header2
+            h1.entry= plan.name.slice(0,1).toUpperCase() + plan.name.slice(1)
+            span.main
+                h2.dollar.price-tag(data-value1=plan.price, data-value2=plan.price2)= plan.name === 'free'? 'Free Forever' : `${plan.price}€`
+                span.sub
+                    -if(plan.name !== 'free')
+                        p.tag /Month
+                        span.badge.badge--small 10% OFF
+            
+            //- h2.moto You can upload up to 
+                span.upload-tokens= `${plan.uloadTokenLimit/1000000} Million ` 
+                | tokens per month
+
+        .description
+            ul.description--list
+                li.list Up to
+                    span.price-advantage= `${plan.uloadTokenLimit/1000000} Million ` 
+                    | upload tokens
+                    
+                li.list Up to
+                    span.price-advantage= ` ${plan.conversationTokenLimit/1000000} Million ` 
+                    | Conversation tokens
+                    
+                li.list Up to
+                    span.price-advantage= ` ${plan.maxChats} ` 
+                    | Chat/Conversation windows. you can just delete one to add one.
+            .nav-item.text-center.action-buttons.pricing-buttons
+                -if(!user )
+                    a.btn-outline-primary.btn.my-2.my-lg-3.mx-2.px-4.btn-login(href="/login" )
+                        i.bi.bi-currency-euro
+                        | Get Started
+
+                -else if(!user.subscription)
+                    a.btn-getStarted.btn-outline-primary.btn.my-2.my-lg-3.mx-2.px-4.btn-login(data-bs-toggle="modal", data-bs-target="#modal-pay")
+                        i.bi.bi-currency-euro
+                        | Get Started
+
+                -else if(user.subscription.name === plan.name)
+                    a.btn-getStarted.btn-outline-primary.btn.my-2.my-lg-3.mx-2.px-4.btn-login(data-bs-toggle="modal", data-bs-target="#modal-pay")
+                        i.bi.bi-currency-euro
+                        | Continue
+                -else if(+user.subscription.price < +plan.price)
+                    a.btn-getStarted.btn-outline-primary.btn.my-2.my-lg-3.mx-2.px-4.btn-login(data-bs-toggle="modal", data-bs-target="#modal-pay")
+                        i.bi.bi-currency-euro
+                        | Upgrade
+                -else if(+user.subscription.price > +plan.price)
+                    a.btn-getStarted.btn-outline-primary.btn.my-2.my-lg-3.mx-2.px-4.btn-login(data-bs-toggle="modal", data-bs-target="#modal-pay")
+                        i.bi.bi-currency-euro
+                        | subscribe

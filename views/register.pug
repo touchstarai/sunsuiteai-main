@@ -1,0 +1,71 @@
+doctype html
+html(lang="en")
+    head
+        include _head
+    body
+        // Navigation section
+        include _nav
+        section#scroll-top.breadcrumb
+            .container
+                .row
+                    .col-lg-7.text-center.text-lg-start
+                        h2.fw-bold.display-5 Register
+                        
+                        hr
+                        h4.text-purple.fw-bold
+                            | Welcome to Chat Files
+                        p.opacity-75
+                            | Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            | Cupiditate vitae velit nam consectetur, in ullam natus pariatur
+                            | aliquid. Aut, magnam!
+                        
+                        
+                        hr
+                        form.signup-form
+                            .mb-3
+                                label.form-label(for="full-name" ) Full Name
+                                input#full-name.form-control(type="text", name='name', placeholder="Enter your full name here..." required minlength='3')
+
+                            .mb-3
+                                label.form-label(for="email") Email address
+                                input#email.form-control(type="email",name='email', placeholder="Enter your email address here..." required)
+                                #emailHelp.form-text We&apos;ll never share your email with anyone else.
+
+                            .mb-3
+                                label.form-label(for="password") Password
+                                input#password.form-control(type="password",name='password', placeholder="********" required minlength='8')
+
+                            .mb-3
+                                label.form-label(for="passwordConfirm") Confirm Password
+                                input#passwordConfirm.form-control(type="password",name='passwordConfirm', placeholder="********" required)
+
+                            .row
+                                .col-lg-6
+                                    .mb-3.form-check.d-flex.justify-content-center.d-lg-block.justify-content-lg-start
+                                        .div
+                                            input#accept-terms.form-check-input(type="checkbox" required)
+                                            label.form-check-label(for="exampleCheck1") Accept the 
+                                                a(href="/terms") Terms
+                                                | ?
+
+                                .col-lg-6.mb-3
+                                    .form-check.d-flex.justify-content-center.d-lg-block.justify-content-lg-start
+                                        .div
+                                            input#accept-cookie.form-check-input(type="checkbox" required )
+                                            label.form-check-label(for="exampleCheck1") Accept the 
+                                                a(href="/cookie") Cookie Policy
+                                                | ?
+
+                            button#btn-signup.btn-register.btn.btn-primary.fs-5.fw-bold.px-5(type="submit") REGISTER NOW!
+                    .col-lg-5.d-none.d-lg-flex.align-items-center
+                        img.img-fluid(src="/img/register-image.png", alt='')
+        // Modal starts
+        #registerlogin.modal.fade(tabindex="-1", aria-labelledby="registerlogin", aria-hidden="true")
+            .modal-dialog.modal-dialog-centered.modal-lg.text-center
+                .modal-content
+                    .modal-body.py-6
+                        h3.fw-bold.fs-2
+                            i.bi.bi-envelope-check
+                            | The Verification link is sent
+                            | to your Email,Check Your Email and click to the invitaion link!
+        include _footer

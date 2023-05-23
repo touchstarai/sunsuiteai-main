@@ -1,0 +1,19 @@
+doctype html
+html(lang="en")
+    head
+        block head
+            include _head
+            script(defer src="/assets/js/script.js", type="module")
+
+                
+    body
+        include _nav
+
+        // Content
+        block content 
+
+        // Footer
+        include _loginRegister
+        
+        include _footer
+

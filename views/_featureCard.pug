@@ -1,0 +1,15 @@
+mixin featureCard(img, alt, featureTitle, href)
+    .col-lg-4.mt-3.p-3
+        .div.py-3.px-4.bg-white.rounded-3.border.border-1
+            img.img-fluid(src=`../img/${img}`, width="80px", alt=alt)
+            h3.fw-bold.mt-2= featureTitle
+            p
+                | Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae
+                | quae delectus expedita error nihil?
+            .d-grid.action-buttons
+                -if(user)
+                    a.btn-primary.btn.fs-5.fw-bold.px-4(href=`/features/${href}`)
+                        | start
+                -else
+                    a.btn-primary.btn.fs-5.fw-bold.px-4(data-bs-toggle="modal", data-bs-target="#registerlogin" )
+                        | Start

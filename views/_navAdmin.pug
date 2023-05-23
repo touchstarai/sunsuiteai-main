@@ -1,0 +1,20 @@
+nav.navbar.navbar-expand-xl.fixed-top.py-3
+    .container
+        a.navbar-brand(href="/")
+            img.img-fluid(src="/assets/img/logo.png", alt="logo")
+        button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
+            i.bi.bi-list
+        #navbarNav.collapse.navbar-collapse
+            ul.navbar-nav.ms-auto.rounded
+                li.nav-item
+                    a.nav-link.px-3.py-2.my-2.my-lg-3(aria-current="page", href="/admin/users") Users
+                li.nav-item
+                    a.nav-link.px-3.py-2.my-2.my-lg-3(href="/admin/plans") Subscriptions
+                li.nav-item.text-center
+                    a.btn-primary.btn.my-4.my-lg-3.ms-2.px-4(href="/admin")
+                        i.bi.bi-pencil-square
+                        | DASHBOARD
+                //- li.nav-item.text-center
+                //-     a.btn-outline-primary.btn.btn-logout.my-2.my-lg-3.mx-2.px-4(href="/")
+                //-         i.bi.bi-box-arrow-in-right
+                //-         | LOGOUT

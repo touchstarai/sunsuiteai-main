@@ -1,0 +1,152 @@
+extends base
+include _pricingCard
+
+block append head 
+    script(defer src="/js/checkout.js" type='module' ) 
+
+block content 
+    section#scroll-top.breadcrumb
+        //- .container
+        //-     .col-lg-8.text-center.text-lg-start
+        //-         h2.fw-bold.display-5 Flexible and transparent pricing
+        //-         hr
+        //-         h4.text-purple.fw-bold   Whatever your status, our offers evolve according to your needs. 
+        //-         p.opacity-75
+        //-             | Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vitae velit
+        //-             | nam
+        //-             | consectetur, in ullam natus pariatur aliquid. Aut, magnam!
+    // Modal
+    #modal-pay.modal.fade(tabindex="-1", aria-labelledby="exampleModalLabel", aria-hidden="true")
+        .modal-dialog.payment-modal
+            .modal-content
+                .modal-header
+                    h5#paymodal-label.modal-title Continue purchasing {plan_name} plan
+                    button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
+                .modal-body
+                    button.btn-outline.btn-primary#btn-continue
+                        | Continue
+
+    // Pricing section
+    // Mothly
+    section.container
+        .row.text-center
+            h2.fw-bold.display-5 Monthly pricing
+            h4.text-purple.fw-bold   Whatever your status, our offers evolve according to your needs. 
+    section.side.justify-content-center.section-pricing.mt-3
+        -for(let i = 0; i < plans.length; i++)
+            +pricingCard(plans[i])
+
+    //- section.container
+    //-     .row.text-center
+    //-         h2.fw-bold.display-5 Monthly pricing
+    //-         h4.text-purple.fw-bold   Whatever your status, our offers evolve according to your needs. 
+    //-     section.side.justify-content-center
+    //-         .card
+    //-             .card--header2
+    //-                 h1.entry Normal
+    //-                 span.main
+    //-                     h2.dollar.price-tag 14&amp;euro;
+    //-                     span.sub
+    //-                         p.tag /Document
+    //-                         span.badge.badge--small 20% OFF
+    //-                 h2.moto Easy Start on the Cloud
+    //-             .description
+    //-                 ul.description--list
+    //-                     li.list Advantage 1
+    //-                     li.list Advantage 2
+    //-                 .nav-item.text-center.action-buttons.pricing-buttons
+    //-                     a.btn-outline-primary.btn.my-2.my-lg-3.mx-2.px-4.(href="#")
+    //-                         i.bi.bi-currency-euro
+    //-                         | subscribe
+    //-         .card
+    //-             .card--header2
+    //-                 h1.entry Standard
+    //-                 span.main
+    //-                     h2.dollar.price-tag 24&amp;euro;
+    //-                     span.sub
+    //-                         p.tag /month
+    //-                         span.badge.badge--small 10% OFF
+    //-                 h2.moto allowed 20 documents
+    //-             .description
+    //-                 ul.description--list
+    //-                     li.list Advantage 1
+    //-                     li.list Advantage 2
+    //-                 .nav-item.text-center.action-buttons.pricing-buttons
+    //-                     a.btn-outline-primary.btn.my-2.my-lg-3.mx-2.px-4.(href="#")
+    //-                         i.bi.bi-currency-euro
+    //-                         | subscribe
+    //-         .card
+    //-             .card--header2
+    //-                 h1.entry Premium
+    //-                 span.main
+    //-                     h2.dollar.price-tag 34&amp;euro;
+    //-                     span.sub
+    //-                         p.tag /month
+    //-                         span.badge.badge--small 10% OFF
+    //-                 h2.moto allowed 50 documents 
+    //-             .description
+    //-                 ul.description--list
+    //-                     li.list Advantage 1
+    //-                     li.list Advantage 2
+    //-                 .nav-item.text-center.action-buttons.pricing-buttons
+    //-                     a.btn-outline-primary.btn.my-2.my-lg-3.mx-2.px-4.(href="#")
+    //-                         i.bi.bi-currency-euro
+    //-                         | subscribe
+    //- // Yearly
+    //- section.container.yearly-container
+    //-     .row.text-center
+    //-         h2.fw-bold.display-5 Yearly pricing
+    //-         h4.text-purple.fw-bold   Whatever your status, our offers evolve according to your needs. 
+    //-     section.side.justify-content-center
+    //-         .card
+    //-             .card--header2
+    //-                 h1.entry Normal
+    //-                 span.main
+    //-                     h2.dollar.price-tag 40&amp;euro;
+    //-                     span.sub
+    //-                         p.tag /Document
+    //-                         span.badge.badge--small 20% OFF
+    //-                 h2.moto Easy Start on the Cloud
+    //-             .description
+    //-                 ul.description--list
+    //-                     li.list Advantage 1
+    //-                     li.list Advantage 2
+    //-                 .nav-item.text-center.action-buttons.pricing-buttons
+    //-                     a.btn-outline-primary.btn.my-2.my-lg-3.mx-2.px-4.(href="#")
+    //-                         i.bi.bi-currency-euro
+    //-                         | subscribe
+    //-         .card
+    //-             .card--header2
+    //-                 h1.entry Standard
+    //-                 span.main
+    //-                     h2.dollar.price-tag 80&amp;euro;
+    //-                     span.sub
+    //-                         p.tag /month
+    //-                         span.badge.badge--small 10% OFF
+    //-                 h2.moto allowed 20 documents
+    //-             .description
+    //-                 ul.description--list
+    //-                     li.list Advantage 1
+    //-                     li.list Advantage 2
+    //-                 .nav-item.text-center.action-buttons.pricing-buttons
+    //-                     a.btn-outline-primary.btn.my-2.my-lg-3.mx-2.px-4.(href="#")
+    //-                         i.bi.bi-currency-euro
+    //-                         | subscribe
+    //-         .card
+    //-             .card--header2
+    //-                 h1.entry Premium
+    //-                 span.main
+    //-                     h2.dollar.price-tag 124&amp;euro;
+    //-                     span.sub
+    //-                         p.tag /month
+    //-                         span.badge.badge--small 10% OFF
+    //-                 h2.moto allowed 50 documents 
+    //-             .description
+    //-                 ul.description--list
+    //-                     li.list Advantage 1
+    //-                     li.list Advantage 2
+    //-                 .nav-item.text-center.action-buttons.pricing-buttons
+    //-                     a.btn-outline-primary.btn.my-2.my-lg-3.mx-2.px-4.(href="#")
+    //-                         i.bi.bi-currency-euro
+    //-                         | subscribe
+    

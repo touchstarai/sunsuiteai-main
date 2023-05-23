@@ -1,0 +1,20 @@
+@media (max-width: 500px) {
+  .navbar-brand {
+    width: 100px;
+  }
+  .hero {
+    background-size: cover;
+    padding: 11em 0.5em 6.5em 0.5em;
+  }
+  .scroll-down {
+    display: none;
+  }
+  .breadcrumb {
+    padding: 8em 0em 1rem 0em;
+  }
+  .float-word-count {
+    width: 200px;
+    height: 125px;
+    font-size: 17px;
+  }
+}

@@ -1,0 +1,90 @@
+mixin planCard(id, name,plan,enabled)
+    tr.plan(data-plan= plan)
+        td= id
+        td= name
+        td
+            a.btn.btn-edit.btn-primary.mr(href="#", data-bs-toggle="modal", data-bs-target="#editSubModal")
+                i.bi.bi-pencil
+                | Edit
+            |   
+            a.btn.btn-disable.btn-danger(href="#", data-bs-toggle="modal", data-bs-target="#disableSubModal")
+                i.bi.bi-person-x= `${enabled? 'Disable': "Enable" }`
+doctype html
+html(lang="en")
+    head
+        include _head
+        script(defer type='module' src="/js/admin/admin.js") 
+        script(defer src="/assets/js/script.js", type="module")
+
+
+
+    body
+        include _navAdmin
+        // EDIT sub Modal
+        #editSubModal.edit-plans.modal.fade(tabindex="-1", aria-labelledby="editSubModalLabel", aria-hidden="true")
+            .modal-dialog.modal-dialog-centered.modal-lg
+                .modal-content
+                    .modal-header
+                        h3#edit-title.modal-title.fw-bold Edit Subscription: {sub_name}
+                        button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
+                    .modal-body
+                        #formPlans
+                            .mb-3
+                                label.form-label(for="exampleInputEmail1") Sub Name
+                                .update-input-container.d-flex
+                                    input#name.form-control(type="text")
+                                    button.btn.btn-primary.btn-update-input Update
+
+                            .mb-3
+                                label.form-label(for="exampleInputEmail1") Conversational Token Limit
+                                .update-input-container.d-flex
+                                    input#conversationTokenLimit.form-control(type="number")
+                                    button.btn.btn-primary.btn-update-input Update
+                            .mb-3
+                                label.form-label(for="exampleInputEmail1") Upload Token Limit
+                                .update-input-container.d-flex
+                                    input#uloadTokenLimit.form-control(type="number")
+                                    button.btn.btn-primary.btn-update-input Update
+                            .mb-3
+                                label.form-label(for="exampleInputEmail1") Chat Window Limit
+                                .update-input-container.d-flex
+                                    input#maxChats.form-control(type="number")
+                                    button.btn.btn-primary.btn-update-input Update
+                            .mb-3
+                                label.form-label(for="exampleInputEmail1") Price in Euro
+                                .update-input-container.d-flex
+                                    input#price.form-control(type="number")
+                                    button.btn.btn-primary.btn-update-input Update
+                            
+                            
+        // Disable Sub Modal
+        #disableSubModal.modal.fade(tabindex="-1", aria-labelledby="disableSubModalLabel", aria-hidden="true")
+            .modal-dialog.modal-dialog-centered.modal-lg
+                .modal-content
+                    .modal-header
+                        h3.modal-title--disable.fw-bold DISABLE SUBSCRIPTION: {sub_name}
+                        button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
+                    .modal-body
+                        h3.modal-desc--disable Are you sure want to disable the Subscription: {sub_name} ?
+                        a.btn.btn-disable.btn-danger(href="#") YES
+        .scroll-top.opacity-0
+            a(href="#scroll-top")
+                i.bi.bi-arrow-up-circle-fill
+        .admin-top.breadcrumb
+            .container.bg-turi.admin-containor
+                h1.display-5.text-white.text-center
+                    | Manage Subscription Plans
+        
+        section.features.py-6.bg-white.px-3.px-lg-0
+            .container
+                .table-responsive
+                    table#table-plans.table.table-hover.align-middle
+                        thead
+                            tr
+                                th(scope="col") ID
+                                th(scope="col") Subscription name
+                                th(scope="col") Actions
+                        tbody
+                            -for(let i = 0; i<plans.length; i++)
+                                +planCard(i+1, plans[i].name, JSON.stringify(plans[i]), plans[i].enabled)
+        include _footer

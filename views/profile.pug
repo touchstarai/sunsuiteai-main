@@ -1,0 +1,38 @@
+extends base
+block content
+    
+    section#scroll-top.breadcrumb
+        .container
+            .col-lg-8.text-center.text-lg-start
+                h2.fw-bold.display-5 Profile Settings
+                hr
+                h4.text-purple.fw-bold 👨‍💼 Need any changes in your profile? 👨‍💼
+                p.opacity-75
+                    | Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate vitae velit
+                    | nam
+                    | consectetur, in ullam natus pariatur aliquid. Aut, magnam!
+    section.profile-settings.px-2.px-lg-0.bg-white(data-user=JSON.stringify(user))
+        .container
+            form#form-updateMe
+                .mb-3
+                    label.form-label(for="name") Full Name
+                    input#name-update.form-control(type="text", placeholder="Enter your full name here..." value=user.name)
+                    
+                .mb-3
+                    label.form-label(for="email") Email address
+                    input#email-update.form-control(type="email", name='email', placeholder="Enter your email address here...", value=`${user.email}`)
+
+                button.btn.btn-updateMe.btn-primary.fs-5.fw-bold.px-5(type="submit") SAVE 
+                
+            form#form-updatePassword.py-5
+                    .mb-3
+                        label.form-label(for="currentPassword") Current Password
+                        input#current-password.form-control(type="password", name='currentPassword', placeholder="********", value='', required)
+                    .mb-3
+                        label.form-label(for="password") New Password
+                        input#password.form-control(type="password", name='password', placeholder="********", required)
+                    .mb-3
+                        label.form-label(for="passwordConfirm") Confirm Password
+                        input#password-confirm.form-control(type="password", name='passwordConfirm', placeholder="********", required)
+                    button.btn.btn-updatePassword.btn-primary.fs-5.fw-bold.px-5(type="submit") Update Password
+    

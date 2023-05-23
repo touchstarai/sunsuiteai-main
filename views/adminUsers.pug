@@ -1,0 +1,136 @@
+mixin userRow(user,id)
+    tr.user(data-user=JSON.stringify(user))
+        th(scope="row")= id
+        td.full-name= user.name
+        td.email= user.email
+        td.verified= user.emailVerified === false? false : true
+        td.plan= user.subscription.name
+        td.role= user.role
+        
+        td
+            a.btn.btn-primary.btn-edit(href="#", data-bs-toggle="modal", data-bs-target="#editModal")
+                i.bi.bi-pencil
+                | Edit
+            a.btn.btn-danger.btn-delete(href="#", data-bs-toggle="modal", data-bs-target="#deleteModal")
+                i.bi.bi-person-x
+                | Delete
+
+doctype html
+html(lang="en")
+    head
+        include _head
+        script(defer type='module' src="/js/admin/admin.js") 
+        script(defer src="/assets/js/script.js", type="module")
+        
+
+    body
+        include _navAdmin
+        // EDIT Modal
+        #editModal.modal.modal-edit-user.fade(tabindex="-1", aria-labelledby="editModalLabel", aria-hidden="true")
+            .modal-dialog.modal-dialog-centered.modal-lg
+                .modal-content
+                    .modal-header
+                        h3.modal-title.fw-bold Edit User: {username}
+                        button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
+                    .modal-body
+                        .form-edit-user
+                            .mb-3
+                                label.form-label(for="name") Full Name
+                                .update-input-container.d-flex
+                                    input#name.form-control(type="text", value="{full_name}")
+                                    button.btn.btn-primary.btn-update-input Update
+
+                            .mb-3
+                                label.form-label(for="plan") Subscription plan
+                                .update-input-container.d-flex
+                                    select.form-control#plan(type="text")
+                                        -for(let i = 0; i < plans.length; i++)
+                                            option(value=plans[i].name, selected)= plans[i].name  
+                                    button.btn.btn-primary.btn-update-input Update
+                                 
+                            .mb-3
+                                label.form-label(for="conversationTokens") Conversational Tokens
+                                .update-input-container.d-flex
+                                    input.form-control#conversationTokens(type="number", value=4200000)
+                                    button.btn.btn-primary.btn-update-input Update
+
+                                
+                            .mb-3
+                                label.form-label(for="uploadTokens") Upload Tokens 
+                                .update-input-container.d-flex
+                                .update-input-container.d-flex
+                                    input.form-control#uploadTokens(type="number", value=1999000)
+                                    button.btn.btn-primary.btn-update-input Update
+                                
+                            .mb-3
+                                label.form-label(for="email") Email address 
+                                .update-input-container.d-flex  
+                                    input.form-control#email(type="email", value="{email_address}")
+                                    button.btn.btn-primary.btn-update-input Update
+
+                            .mb-3
+                                label.form-label(for="emailVerified") Verified 
+                                .update-input-container.d-flex 
+                                    select.form-control#emailVerified(type="text")
+                                        option(value='true', selected) True
+                                        option(value='false') False
+                                    button.btn.btn-primary.btn-update-input Update
+
+                            .mb-3
+                                label.form-label(for="role") Role
+                                .update-input-container.d-flex
+                                    input.form-control#role(type="text", value="{role}")
+                                    button.btn.btn-primary.btn-update-input Update
+
+                            .mb-3
+                                label.form-label(for="exampleInputPassword1") Password
+                                .update-input-container.d-flex
+                                    input.form-control#password(type="password", )
+                                    button.btn.btn-primary.btn-update-input Update
+
+                                    
+                        
+                            
+        // Delete Modal
+        #deleteModal.modal.fade(tabindex="-1", aria-labelledby="deleteModalLabel", aria-hidden="true")
+            .modal-dialog.modal-dialog-centered.modal-lg
+                .modal-content
+                    .modal-header
+                        h3.modal-title.fw-bold DELETE USER: {username}
+                        button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
+                    .modal-body
+                        h3.modal-description Are you sure want to delete the user: {username} ?
+                        a.btn.btn-danger.btn-delete-yes(href="#") YES
+        .admin-top.breadcrumb
+            .container.bg-turi.admin-containor
+                h1.display-5.text-white.text-center
+                    | Manage Users
+        section.features.py-6.bg-white.px-3.px-lg-0
+            .container
+                .table-responsive
+                    table.table.table-hover.align-middle.table-user
+                        thead
+                            tr
+                                th(scope="col") ID
+                                th(scope="col") Full name
+                                th(scope="col") Email address
+                                th(scope="col") Verified
+                                th(scope="col") Subscription
+                                th(scope="col") Role
+                                th(scope="col") Actions
+                        tbody
+                            -for(let i = 0; i < users.length; i++)
+                                +userRow(users[i], i+1)
+
+                    nav(aria-label="Page navigation example")
+                        ul.pagination.justify-content-center.fw-bold.fs-5.text-purple
+                            -if(page>1)
+                                li.page-item
+                                    a.page-link(href=`/admin/users?page=${+page-1}`) Prev Page
+                                    | 
+                                
+                            -if(+page < numOfPages)
+                                li.page-item
+                                    a.page-link(href=`/admin/users?page=${+page+1}`) Next Page
+        // footer
+        include _footer
