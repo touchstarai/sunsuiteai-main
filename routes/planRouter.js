@@ -6,7 +6,14 @@ const planController = require('../controllers/planController');
 const router = express.Router();
 
 router.route('/').get(planController.getPlans);
-router.route('/:id').patch(planController.updatePlan);
+router
+  .route('/:id')
+  .patch(
+    authController.protect,
+    authController.strictTo('adimn', 'dev'),
+    planController.updatePlan
+  );
+
 router.get(
   '/checkout-session/:planId',
   authController.protect,

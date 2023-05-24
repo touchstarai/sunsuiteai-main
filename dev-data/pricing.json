@@ -8,20 +8,12 @@
     "conversationTokenLimit": 20000
   },
   {
-    "name": "Gold",
-    "price": 4.99,
+    "name": "Standard",
+    "price": 9.99,
     "maxChats": 7,
     "description": "Lorem episum sit amet",
-    "uloadTokenLimit": 2500000,
-    "conversationTokenLimit": 1000000
-  },
-  {
-    "name": "Diamond",
-    "price": 9.99,
-    "maxChats": 12,
-    "description": "",
-    "uloadTokenLimit": 6000000,
-    "conversationTokenLimit": 2500000
+    "uloadTokenLimit": 5000000,
+    "conversationTokenLimit": 2000000
   },
   {
     "name": "Peremium",

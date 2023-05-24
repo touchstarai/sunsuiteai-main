@@ -26,7 +26,7 @@ class Chat {
     // this.url = `wss://${
     //   location.hostname === 'localhost' ? 'localhost:8000' : location.hostname
     // }/api/v1/pdf/chat/${_id}`;
-
+    console.log(this.url);
     this.socket = new WebSocket(this.url);
     // this.socket = new WebSocket(`wss://${location.hostname}/api/v1/pdf/chat/${_id}`);
 
@@ -274,10 +274,13 @@ class Chat {
   handleSocketClose = () => {
     if (this !== currentChat) return;
 
-    showAlert(
-      'danger',
-      'Something went wrong on trying to connect to the websocket. We will try to reconnect automatically if you try to send a question.'
-    );
+    if (document.querySelector('.loader-chat-bot')) {
+      showAlert('danger', 'websocket disconnected while streamin resul.');
+      document.querySelector('.loader-chat-bot').remove();
+    }
+    this.socket = new WebSocket(this.url);
+    this.socket.onmessage = this.addWebsocketResponse;
+    this.socket.onclose = this.handleSocketClose;
   };
 
   // ----------------- RESET SOCKET
