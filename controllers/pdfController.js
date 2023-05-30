@@ -1,4 +1,6 @@
 const multer = require('multer');
+const jwt = require('jsonwebtoken');
+const { promisify } = require('util');
 
 const { Configuration, OpenAIApi } = require('openai');
 const configuration = new Configuration({
@@ -161,71 +163,6 @@ exports.addPdfIntoChat = catchAsync(async function (req, res, next) {
   // const file = req.
 });
 
-// --------------------------- Chat
-// exports.chat = catchAsync(async function (req, res, next) {
-//   const { chatId } = req.params;
-//   const { question } = req.body;
-//   const openAIApiKey = res.cookies?.openAIApiKey;
-
-//   if (!question || question.trim() === '')
-//     return next(new AppError('You have to provide question!', 400));
-
-//   const { vectorName: nameSpace, indexName } = await req.user.chats.id(chatId);
-
-//   // OPEN-AI recommendation to replace new lines with space
-//   const sanitizedQuestion = question.replace('/n', ' ').trim();
-
-//   await pineconeClient.init({
-//     apiKey: process.env.PINECONE_API_KEY,
-//     environment: process.env.PINECONE_ENVIRONMENT,
-//   });
-
-//   const pineconeIndex = pineconeClient.Index(
-//     indexName || process.env.PINECONE_INDEX_NAME
-//   );
-
-//   // vectore store
-//   const vectorStore = await PineconeStore.fromExistingIndex(
-//     new OpenAIEmbeddings({ openAIApiKey: openAIApiKey }),
-//     {
-//       pineconeIndex,
-//       namespace: nameSpace,
-//     }
-//   );
-
-//   // Get chat history
-//   const user = await User.findById(req.user._id).select('+chats.chatHistory');
-//   const chatHistory = user.chats.id(chatId).chatHistory.slice(-5);
-
-//   // let newToken
-//   const streamHandler = {
-//     handleLLMNewToken(token) {
-//       console.log('token', { token });
-//     },
-//   };
-
-//   const chain = makeChain(vectorStore, streamHandler);
-//   //Ask a question using chat history
-//   const response = await chain.call({
-//     question: sanitizedQuestion,
-//     chat_history: chatHistory,
-//   });
-
-//   // console.log(response);
-
-//   await user.updateConversationTokens(
-//     (response.text.length + sanitizedQuestion.length) / 4
-//   );
-
-//   // Update User
-//   user.chats
-//     .id(chatId)
-//     .chatHistory.push([`Question: ${question}`, `Answer: ${response.text}`]);
-//   user.updateChatModifiedDate(chatId);
-
-//   res.status(200).json({ status: 'success', data: { response } });
-// });
-
 // ------------------------- GET CHAT BY ID
 exports.getChat = catchAsync(async function (req, res, next) {
   const { chatId } = req.params;
@@ -296,7 +233,47 @@ exports.clearChatHistory = catchAsync(async function (req, res, next) {
   });
 });
 
-// // --------------------- Translate
-// exports.translateDocument = catchAsync(async function (req, res, next) {
-//   if (!req.body.language) return next();
-// });
+// ------------------------------ Create Apikey for a chat
+exports.generateApiKey = catchAsync(async function (req, res, next) {
+  const { chatId } = req.params;
+  const { user, chat } = req;
+
+  const apiKey = signApiToken({ chatId, id: user._id });
+
+  chat.apiGenerationDate = Date.now();
+
+  await user.save({ validateBeforeSave: false });
+
+  res.status(200).json({ status: 'success', data: { apiKey } });
+});
+
+exports.revokeApi = catchAsync(async function (req, res, next) {
+  const { user, chat } = req;
+
+  chat.apiGenerationDate = Date.now();
+
+  await user.save({ validateBeforeSave: false });
+
+  res.status(200).json({ status: 'success', message: 'api key revoked' });
+});
+
+exports.passChat = catchAsync(async function (req, res, next) {
+  const { chatId } = req.params;
+  const { user } = req;
+
+  const chat = user.chats.id(chatId);
+
+  if (!chat) return next(new AppError('No chat with this id.', 404));
+
+  req.chat = chat;
+
+  next();
+});
+
+// // --------------------- Helpers
+function signApiToken({ chatId, id }) {
+  return jwt.sign(
+    { id: id, chatId, iat: Date.now() / 1000 + 50 },
+    process.env.JWT_SECRET
+  );
+}

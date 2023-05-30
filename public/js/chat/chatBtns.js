@@ -13,6 +13,7 @@ const chatColumnLeft = document.querySelector('.chat-column-left');
 // const btnTools = document.querySelector('.button-tools');
 const expandSideBar = document.querySelector('.btn-open-sidebar');
 const chatBtnContainer = document.querySelector('.chat-btn-container');
+const modalGenerate = document.getElementById('modal-apikey');
 
 const baseUrl = '/api/v1/pdf/';
 let handler;
@@ -28,6 +29,9 @@ const chatToolsHtml = `
         </buton>
         <buton class="btn-download-chat btn btn-tool">
           <i class="bi bi-download"></i>
+        </buton>
+        <buton class="btn-generate-apikey btn btn-tool" data-bs-toggle="modal" data-bs-target="#modal-apikey">
+          <i class="bi bi-key"></i>
         </buton>
       </div>`;
 
@@ -155,6 +159,7 @@ export async function handleChatTools(e) {
   try {
     const addDocumentInput = document.getElementById('add-file');
     if (e.target.closest('.btn-reset-chat')) return handleResetChat(e);
+    if (e.target.closest('.btn-generate-apikey')) return handleGenerateApiKey(e);
     if (e.target.closest('.btn-download-chat'))
       return currentChat.handleDownloadConversation();
 
@@ -203,6 +208,33 @@ async function handleResetChat(e) {
   }
   chatLoader?.classList.add('hidden');
   btnReset.removeAttribute('disabled');
+}
+
+async function handleGenerateApiKey(e) {
+  const chatId = getChatId(e.target);
+  const generateBtn = modalGenerate?.querySelector('.apikey-copy-btn');
+  try {
+    showProgress(generateBtn);
+
+    const { data } = await makeRequest({
+      url: `/api/v1/pdf/apikey/${chatId}`,
+      method: 'get',
+    });
+
+    modalGenerate.querySelector('.text-to-be-copy').innerText = data.apiKey;
+    generateBtn.addEventListener('click', handleCopyApikey);
+    removeProgress(generateBtn, `<i class="bi bi-clipboard2"></i>`);
+  } catch (err) {
+    showError(err, generateBtn, 'Re generate');
+  }
+}
+
+function handleCopyApikey(e) {
+  const text = modalGenerate.querySelector('.text-to-be-copy').innerText;
+  navigator.clipboard.writeText(text);
+
+  e.target.closest('.apikey-copy-btn').innerHTML =
+    '<i class="bi bi-clipboard2-check-fill"></i>';
 }
 
 // ///////////// //
@@ -268,4 +300,11 @@ dropZone?.addEventListener('click', () => {
 
 input?.addEventListener('change', async () => {
   if (input.files[0]) fetchAndDisplay(input.files[0], true);
+});
+
+modalGenerate?.addEventListener('hide.bs.modal', (e) => {
+  modalGenerate.querySelector('.text-to-be-copy').innerText = '';
+  modalGenerate
+    ?.querySelector('.apikey-copy-btn')
+    .removeEventListener('click', handleCopyApikey);
 });

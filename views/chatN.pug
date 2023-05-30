@@ -93,32 +93,26 @@ html(lang="en")
                         .messages-container
                             .d-flex.justify-content-center.chat-loader.hidden
                                 .spinner-grow.text-primary.loader(role="status") 
-                                //- h5.chat-loader-text
-                            //- .bot-message.message Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur corporis culpa velit magnam assumenda cum nam nobis soluta vel ipsum placeat quam vitae accusamus maiores aliquid sunt officia dignissimos in, exercitationem quis voluptatum quisquam. Impedit laboriosam magni ipsa cum corporis mollitia nam illum ipsam a, voluptas rem, vitae, fugit iste?
-                            //- .user-message.message Lorem, ipsum dolor sit amet consectetur adipisicing elitsit amet consectetur adipisicing elit. Dolor, ullam?
-                            //- .bot-message.message Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur corporis culpa velit magnam assumenda cum nam nobis soluta vel ipsum placeat quam vitae accusamus maiores aliquid sunt officia dignissimos in, exercitationem quis voluptatum quisquam. Impedit laboriosam magni ipsa cum corporis mollitia nam illum ipsam a, voluptas rem, vitae, fugit iste?
-                            //- .user-message.message Lore m, ipsum dolor sit amet consectetur adipisicing elit. Dolor, ullam?
-                            //- .bot-message.message Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur corporis culpa velit magnam assumenda cum nam nobis soluta vel ipsum placeat quam vitae accusamus maiores aliquid sunt officia dignissimos in, exercitationem quis voluptatum quisquam. Impedit laboriosam magni ipsa cum corporis mollitia nam illum ipsam a, voluptas rem, vitae, fugit iste?
-                            //- .user-message.message Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor, ullam?
-                            //- .bot-message.message Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur corporis culpa velit magnam assumenda cum nam nobis soluta vel ipsum placeat quam vitae accusamus maiores aliquid sunt officia dignissimos in, exercitationem quis voluptatum quisquam. Impedit laboriosam magni ipsa cum corporis mollitia nam illum ipsam a, voluptas rem, vitae, fugit iste?
-                            //- .user-message.message Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor, ullam?
-                            //- .bot-message.message Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur corporis culpa velit magnam assumenda cum nam nobis soluta vel ipsum placeat quam vitae accusamus maiores aliquid sunt officia dignissimos in, exercitationem quis voluptatum quisquam. Impedit laboriosam magni ipsa cum corporis mollitia nam illum ipsam a, voluptas rem, vitae, fugit iste?
-                            //- .user-message.message Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor, ullam?
-                            //- .bot-message.message Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur corporis culpa velit magnam assumenda cum nam nobis soluta vel ipsum placeat quam vitae accusamus maiores aliquid sunt officia dignissimos in, exercitationem quis voluptatum quisquam. Impedit laboriosam magni ipsa cum corporis mollitia nam illum ipsam a, voluptas rem, vitae, fugit iste?
-                            //- .user-message.message Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor, ullam?
-                            //- .bot-message.message Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur corporis culpa velit magnam assumenda cum nam nobis soluta vel ipsum placeat quam vitae accusamus maiores aliquid sunt officia dignissimos in, exercitationem quis voluptatum quisquam. Impedit laboriosam magni ipsa cum corporis mollitia nam illum ipsam a, voluptas rem, vitae, fugit iste?
-                            //- .user-message.message Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor, ullam?
-                            //- .bot-message.message Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur corporis culpa velit magnam assumenda cum nam nobis soluta vel ipsum placeat quam vitae accusamus maiores aliquid sunt officia dignissimos in, exercitationem quis voluptatum quisquam. Impedit laboriosam magni ipsa cum corporis mollitia nam illum ipsam a, voluptas rem, vitae, fugit iste?
-                            //- .user-message.message Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor, ullam?
-                            //- .bot-message.message Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur corporis culpa velit magnam assumenda cum nam nobis soluta vel ipsum placeat quam vitae accusamus maiores aliquid sunt officia dignissimos in, exercitationem quis voluptatum quisquam. Impedit laboriosam magni ipsa cum corporis mollitia nam illum ipsam a, voluptas rem, vitae, fugit iste?
-                            //- .user-message.message Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor, ullam?
+                                
                         .input-send-container
-                            input#user-input.form-control.generate-input(type="text", placeholder="Ask Me A Question...")
-                            button#submit-button.btn-ask.btn.btn-default.btn-primary(type="button")
+                            input#user-input.form-control.generate-input(type="text", placeholder="Upload file or select a chat to get started" disabled)
+                            button#submit-button.btn-ask.btn.btn-default.btn-primary(type="button" disabled)
                                 i.bi.bi-send
                 
             button.btn.btn-open-sidebar.hidden-desktop.btn-outline-primary
                 i.bi.bi-arrow-bar-right
+            
+            // API key
+            #modal-apikey.modal.fade(tabindex="-1", aria-labelledby="exampleModalLabel", aria-hidden="true")
+                .modal-dialog.apikey-modal
+                    .modal-content
+                        .modal-header
+                            h5#exampleModalLabel.modal-title API key
+                            button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
+                        .modal-body
+                            p.text-to-be-copy.overflow-hidden
+                            button.btn.btn-outline-primary.apikey-copy-btn
+                                | Copy
         -else
             section#scroll-top.breadcrumb
             include _loginRegister

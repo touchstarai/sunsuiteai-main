@@ -29,8 +29,13 @@ router
   );
 
 router
+  .route('/apikey/:chatId')
+  .get(pdfController.passChat, pdfController.generateApiKey)
+  .patch(pdfController.passChat, pdfController.revokeApi);
+
+router
   .route('/chat/:chatId')
-  // .post(pdfController.checkTokenLimit, chatController.chat)
+  // .post(chatController.getApiKey)
   .get(pdfController.getChat)
   .patch(pdfController.clearChatHistory)
   .delete(pdfController.deleteChat);

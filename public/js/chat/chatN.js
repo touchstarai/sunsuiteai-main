@@ -42,6 +42,7 @@ class Chat {
     resetMessageInputContainer();
     this.chatContainer = document.querySelector('.messages-container');
     this.chatContainer.addEventListener('click', this.handleCopy);
+    this.initializeInputGroup();
     this.addListnersForInput();
     this.populateHistory();
   }
@@ -244,6 +245,13 @@ class Chat {
   setCurrentChat(chat) {
     currentChat?.collectGarbage();
     currentChat = chat;
+  }
+
+  // ------------ Init input and button
+  initializeInputGroup() {
+    this.generateBtn.removeAttribute('disabled');
+    this.promptInput.removeAttribute('disabled');
+    this.promptInput.setAttribute('placeholder', 'Ask anything about your documents...');
   }
 
   // ------------ add Event listners for the input filed

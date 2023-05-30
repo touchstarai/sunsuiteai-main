@@ -62,7 +62,6 @@ function signAndSend(user, statusCode, res, redirect) {
 }
 
 // -------------------------------- SIGNUP
-
 exports.signUp = catchAsync(async function (req, res, next) {
   if (req.user)
     return next(
@@ -376,8 +375,15 @@ exports.protect = catchAsync(async function (req, res, next) {
   next();
 });
 
-// ------------------------------- STRICT TO
+// ---------------------------- Check API key
+exports.cheApiKey = catchAsync(async function (req, res, next) {
+  const { authorization } = req.headers;
+  const apiKey = authorization?.startsWith('Bearer') && authorization.split(' '[1]);
 
+  // if(!apiKey) return next(new AppError('Please provide '))
+});
+
+// ------------------------------- STRICT TO
 exports.strictTo = function (...role) {
   return catchAsync(async function (req, res, next) {
     const { user } = req;
