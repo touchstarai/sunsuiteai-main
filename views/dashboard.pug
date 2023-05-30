@@ -1,4 +1,9 @@
 extends base
+mixin chatWithKey(chat)
+    .key-revoke-container
+        p.chat-name= chat.name.startsWith('.')? chat.name : chat.name.split('.')[0] 
+        button.btn-danger.btn.btn-revoke(data-chatid=chat._id) Revoke
+        
 block content
 
     .scroll-top.opacity-0
@@ -35,14 +40,17 @@ block content
                     .py-3.px-4.bg-white.rounded-3.border.border-1
                         h3.fw-bold.mt-2 Upload Tokens Left
                         h5= uploadTokens
-                //- .col-lg-4.mt-3.p-3
-                //-     .py-3.px-4.bg-white.rounded-3.border.border-1
-                //-         h3.fw-bold.mt-2  Conversational Tokens Left
-                //-         p
-                //-             | 239,485 Tokens
-                //- .col-lg-4.mt-3.p-3
-                //-     .py-3.px-4.bg-white.rounded-3.border.border-1
-                //-         h3.fw-bold.mt-2  Upload Tokens Left
-                //-         p
-                //-             | 239,485 Tokens
+
+                .col-lg-4.mt-3.p-3.dashboard-card.manage-keys
+                    .stat-header
+                    .py-3.px-4.bg-white.rounded-3.border.border-1
+                        h3.fw-bold.mt-2 Manage your API keys
+                        -if(chats.length === 0)
+                            h5 There is no chat with API key
+                        -else 
+                            -for(let i = 0; i<chats.length; i++)
+                                +chatWithKey(chats[i])
+                        
+
+                
     

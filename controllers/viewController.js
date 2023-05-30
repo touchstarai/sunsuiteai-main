@@ -65,10 +65,13 @@ exports.resetPassword = function (req, res, next) {
 exports.dashboard = function (req, res, next) {
   const formater = new Intl.NumberFormat('fr-FR');
 
+  const chats = req.user.chats.filter((chat) => chat.apiGenerationDate !== undefined);
+
   const locals = {
     conversationTokens: formater.format(req.user.conversationTokens.toFixed(0)),
     uploadTokens: formater.format(req.user.uploadTokens.toFixed(0)),
     subscription: req.user.subscription.name,
+    chats,
     title: 'Dashboard',
   };
 

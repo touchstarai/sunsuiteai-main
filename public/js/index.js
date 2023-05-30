@@ -5,6 +5,7 @@ import handleUpdateMe from './updateMe.js';
 import handleUpdatePassword from './updatePassword.js';
 // import { analyzePdf, checkReference } from './DocAnalyzer.js';
 import handleGetStarted from './checkout.js';
+import handleRevoke from './apiRevoke.js';
 
 const formAnalyser = document.getElementById('analyser-form');
 const formChecker = document.getElementById('checker-form');
@@ -15,6 +16,7 @@ const forgotPassword = document.getElementById('forgot-password');
 const passowrd = document.getElementById('password-container');
 const updateMe = document.getElementById('form-updateMe');
 const updatePassword = document.getElementById('form-updatePassword');
+const cardKey = document.querySelector('.manage-keys');
 
 const btnLoginNow = document.querySelector('.btn-loginnow');
 
@@ -43,3 +45,5 @@ forgotPassword?.addEventListener('click', (e) => {
   login.removeEventListener('submit', handleLogin);
   login.addEventListener('submit', handleForgot);
 });
+
+cardKey?.addEventListener('click', handleRevoke);

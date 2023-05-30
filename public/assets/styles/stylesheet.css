@@ -897,3 +897,19 @@ input:checked + .slider:before {
 .dashboard-card {
   transition: all 0.3s;
 }
+
+/* Chats Api key dashboard */
+.key-revoke-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center !important;
+  /* align-items: center; */
+}
+
+.btn-revoke {
+  height: 30px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

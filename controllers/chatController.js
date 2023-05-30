@@ -249,7 +249,7 @@ async function checkApiStatus(req) {
       400
     );
 
-  if (chat.apiGenerationDate / 1000 > iat)
+  if (!chat.apiGenerationDate || chat.apiGenerationDate / 1000 > iat)
     throw new AppError(
       'This api key is revoked or changed. Please generate new and try agian.',
       401

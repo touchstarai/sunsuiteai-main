@@ -250,7 +250,7 @@ exports.generateApiKey = catchAsync(async function (req, res, next) {
 exports.revokeApi = catchAsync(async function (req, res, next) {
   const { user, chat } = req;
 
-  chat.apiGenerationDate = Date.now();
+  chat.apiGenerationDate = undefined;
 
   await user.save({ validateBeforeSave: false });
 
